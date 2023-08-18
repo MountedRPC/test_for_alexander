@@ -5,6 +5,10 @@ import re
 import requests
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 limiter = Limiter(
@@ -16,7 +20,7 @@ limiter = Limiter(
 
 def auth():
     r = requests.get('https://oauth.vk.com/access_token',
-                     params={'client_id': 51730448, 'client_secret': 'lEmf9dCJwtCGq0yksOFS',
+                     params={'client_id': os.environ['CLIENT_ID'], 'client_secret': os.environ['CLIENT_SECRET'],
                              'grant_type': 'client_credentials', 'v': '5.131'})
     return r.json()
     # vk_session = vk_api.VkApi(app_id=51730448, client_secret='lEmf9dCJwtCGq0yksOFS')
@@ -61,6 +65,7 @@ def get_vk_profile(vk):
         return jsonify(formatted_data)
     else:
         return jsonify({'status': 'error', 'code': 403, 'message': "Invalid account name:"}), 403
+
 
 # FIXME
 # <your_domain>/api/v1?method=likes&link=<post_link>
