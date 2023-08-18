@@ -21,9 +21,6 @@ def auth():
                      params={'client_id': os.environ['CLIENT_ID'], 'client_secret': os.environ['CLIENT_SECRET'],
                              'grant_type': 'client_credentials', 'v': '5.131'})
     return r.json()
-    # vk_session = vk_api.VkApi(app_id=51730448, client_secret='lEmf9dCJwtCGq0yksOFS')
-    # vk_session.server_auth()
-    # return vk_session.token
 
 
 @app.route('/api/v1', methods=['GET'])
@@ -65,7 +62,6 @@ def get_vk_profile(vk):
         return jsonify({'status': 'error', 'code': 403, 'message': "Invalid account name:"}), 403
 
 
-# FIXME
 # <your_domain>/api/v1?method=likes&link=<post_link>
 def get_likes_profile(vk):
     link = request.args.get('link')
