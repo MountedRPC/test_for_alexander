@@ -1,6 +1,4 @@
-import vk_api
 from flask import Flask, request, jsonify
-import time
 import re
 import requests
 from flask_limiter import Limiter
